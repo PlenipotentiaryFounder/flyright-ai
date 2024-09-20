@@ -1,26 +1,30 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es5", // Maintains compatibility with older environments.
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext" // Supports the latest JavaScript features.
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "allowJs": true, // Allows JavaScript files to be compiled.
+    "skipLibCheck": true, // Skips type checking of declaration files.
+    "esModuleInterop": true, // Enables interoperability between CommonJS and ES Modules.
+    "allowSyntheticDefaultImports": true, // Allows default imports from modules with no default export.
+    "strict": true, // Enables all strict type-checking options.
+    "forceConsistentCasingInFileNames": true, // Enforces consistent casing in file imports.
+    "noFallthroughCasesInSwitch": true, // Ensures all switch cases end correctly.
+    "module": "esnext", // Uses the latest module system.
+    "moduleResolution": "node", // Uses Node.js module resolution strategy.
+    "resolveJsonModule": true, // Allows importing .json files.
+    "isolatedModules": true, // Ensures each file can be transpiled individually.
+    "noEmit": true, // Prevents emitting compiled output.
+    "jsx": "react-jsx", // Uses the new JSX transform.
+    "baseUrl": "src", // Sets the base directory for module resolution.
+    "paths": {
+      "@/*": ["*"] // Maps absolute imports starting with '@/...' to the 'src' directory.
+    }
   },
   "include": [
-    "src"
+    "src" // Includes the 'src' directory for compilation.
   ]
 }

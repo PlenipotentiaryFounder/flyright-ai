@@ -1,0 +1,74 @@
+Step-by-Step Workflow for Adding a New Page
+Create the New Page Component:
+Create a new file for your page component in the appropriate directory, e.g., src/components/pages/NewPage.tsx.
+Define and export the new page component.
+Update Route Configuration:
+Open your App.tsx file.
+Import the new page component.
+Add a new route for the new page.
+App.tsx
+//   import React from 'react';
+   import { Route, Routes } from 'react-router-dom';
+   import LandingPage from '@/components/pages/LandingPage';
+   import Login from '@/components/pages/Login';
+   import Register from '@/components/pages/Register';
+   import WelcomePage from '@/components/pages/WelcomePage';
+   import NewPage from '@/components/pages/NewPage'; // Import the new page
+   import '@/App.css';
+
+   function App() {
+     return (
+       <Routes>
+         <Route path="/" element={<LandingPage />} />
+         <Route path="/welcome" element={<WelcomePage />} />
+         <Route path="/login" element={<Login />} />
+         <Route path="/register" element={<Register />} />
+         <Route path="/newpage" element={<NewPage />} /> {/* Add the new route */}
+       </Routes>
+     );
+   }
+
+export default App;
+App.tsx
+3. Add Navigation Links (if needed):
+If you have a navigation bar or links, update them to include a link to the new page.
+For example, in your Navbar.tsx:
+Navbar.tsx
+//   import React from 'react';
+   import { Link } from 'react-router-dom';
+//const Navbar = () => {
+     return (
+       <nav>
+         <ul>
+           <li><Link to="/">Home</Link></li>
+           <li><Link to="/login">Login</Link></li>
+           <li><Link to="/register">Register</Link></li>
+           <li><Link to="/welcome">Welcome</Link></li>
+           <li><Link to="/newpage">New Page</Link></li> {/* Add the new link */}
+         </ul>
+       </nav>
+     );
+   };
+
+   export default Navbar;
+Ensure BrowserRouter is Used Correctly:
+Make sure BrowserRouter is wrapping your App component in index.tsx.
+index.tsx
+//   import React from 'react';
+   import ReactDOM from 'react-dom';
+   import { BrowserRouter as Router } from 'react-router-dom';
+   import App from './App';
+   import './index.css';
+
+   ReactDOM.render(
+     <Router>
+       <App />
+     </Router>,
+     document.getElementById('root')
+   );
+Done
+5. Test the New Page:
+Start your development server and navigate to the new page's URL (e.g., /newpage) to ensure it renders correctly.
+Verify that any navigation links to the new page work as expected.
+Summary
+By following these steps, you can add a new page to your React application, configure routing, and update navigation links. This workflow ensures that your new page is properly integrated into your application. If you encounter any issues or need further assistance, feel free to ask!

@@ -1,4 +1,5 @@
 import os
+import filecmp
 import json
 from datetime import datetime
 
@@ -58,4 +59,4 @@ def main():
         json.dump(new_structure, f)
 
 if __name__ == "__main__":
-    main()
+    main() 
