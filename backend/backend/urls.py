@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include  # Make sure 'include' is imported
+from rest_framework.routers import DefaultRouter
+from api.views import ConversationViewSet, WeaviateSearchViewSet, FlashcardViewSet
+
+router = DefaultRouter()
+
+router.register(r'conversations', ConversationViewSet)
+router.register(r'search', WeaviateSearchViewSet, basename='search')
+router.register(r'flashcards', FlashcardViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),  # This includes the URLs from the 'api' app
+    path('api/', include(router.urls)),
+    # Add other URL patterns as needed
 ]

@@ -1,19 +1,14 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import LandingPage from '@/components/pages/LandingPage';
-import Login from '@/components/pages/Login';
-import Register from '@/components/pages/Register';
-import WelcomePage from '@/components/pages/WelcomePage';
-import '@/App.css';
+import AppRoutes from './routes'; // Ensure the correct path to your routes
+import Login from './Auth/Pages/Login';
+import Register from './Auth/Pages/Register';
+import MockOralPage from './MockOral/Pages/MockOralPage';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/welcome" element={<WelcomePage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
+    <div className="App">
+      <AppRoutes />
+    </div>
   );
 }
 
