@@ -1,8 +1,8 @@
 import React from 'react';
-import { Reference } from '@/types/generalTypes';
-import Button from '@/components/ui/Button'; // Correct import for default export
-import ScrollArea from '@/components/ui/Scroll-Area';
-import { X, MessageSquarePlus, Plus } from 'lucide-react'; // Import icons directly
+import { Reference } from '../../types/generalTypes';
+import Button from '../Components/Button';
+import ScrollArea from '../Components/ScrollArea';
+import { X, MessageSquarePlus, Plus } from 'lucide-react';
 
 interface ResourcesWindowProps {
   referenceBoxes: Reference[];

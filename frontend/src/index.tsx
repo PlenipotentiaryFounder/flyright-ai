@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './App';
-import store from './store'; // Ensure the correct path to your store
+import store from './store'; // This should point to your store/index.tsx file
 import './index.css';
 
 ReactDOM.render(

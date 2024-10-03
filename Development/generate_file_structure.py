@@ -25,9 +25,20 @@ file_structure = generate_tree(root_dir)
 
 # Write the structure to the markdown file with UTF-8 encoding
 with open(output_file, "w", encoding="utf-8") as file:
+    def get_backend_file_structure():
+        backend_dir = os.path.join(root_dir, "backend")
+        return generate_tree(backend_dir)
+    
+    backend_file_structure = get_backend_file_structure()
+    
     file.write("# Project File Structure\n\n")
     file.write("```\n")
     file.write(file_structure)
+    file.write("```\n")
+    
+    file.write("\n# Backend File Structure\n\n")
+    file.write("```\n")
+    file.write(backend_file_structure)
     file.write("```\n")
 
 print(f"File structure has been updated and saved to: {output_file}")

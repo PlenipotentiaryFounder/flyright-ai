@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollArea } from "../../Common/Components/ScrollArea"
+import ScrollArea from "../../Common/Components/ScrollArea"
 import Card from "../../Common/Components/Card"
 import Button from "../../Common/Components/Button"
 import { User, Bookmark, PlusCircle } from 'lucide-react'

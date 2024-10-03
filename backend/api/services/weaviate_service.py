@@ -1,48 +1,61 @@
 import weaviate
-from weaviate.auth import AuthApiKey
-from weaviate import WeaviateClient
-import logging
+import os
+from weaviate.embedded import EmbeddedOptions
+from django.conf import settings
+from contextlib import contextmanager
+from weaviate import Client
 
-# Initialize the Weaviate client with your Weaviate Cloud cluster URL and API key
-client = weaviate.Client(
-    url="https://gecejvo1r1sirw4mkrkiw.c0.us-west3.gcp.weaviate.cloud",
-    auth_client_secret=weaviate.AuthApiKey(api_key="hAaAxbOgjVc7YQOzRpU8KF48dqAennNmGoXU")  # Replace "your-api-key" with your actual API key
-)
-
-logger = logging.getLogger('api')
-
-def test_weaviate_connection():
+@contextmanager
+def weaviate_client():
+    client = None
     try:
-        client.is_ready()  # Check if Weaviate is ready
-        return "Connected to Weaviate Cloud successfully!"
+        client = weaviate.connect_to_wcs(
+            cluster_url=settings.WEAVIATE_URL,
+            auth_credentials=weaviate.auth.AuthApiKey(settings.WEAVIATE_API_KEY)
+        )
+        print("Weaviate client initialized successfully")
+        yield client
     except Exception as e:
-        return f"Failed to connect to Weaviate Cloud: {e}"
+        print(f"Error initializing Weaviate client: {e}")
+        yield None
+    finally:
+        if client:
+            client.close()
+            print("Weaviate client connection closed")
 
-# Ensure you have the correct function definition for search_weaviate
+# Remove the global client variable
+
 def search_weaviate(query):
-    logger.debug('Initializing Weaviate client')
-    client = WeaviateClient(
-        url="http://localhost:8080",  # Update with your Weaviate instance URL
-        auth_client_secret=AuthApiKey(api_key="your_api_key")  # Update with your API key
-    )
-   # Your search logic here
-    result = client.query.get("YourClassName", ["property1", "property2"]).with_where({
-        "path": ["property"],
-        "operator": "Equal",
-        "valueString": query
-    }).do()
-    return result
-    logger.debug('Weaviate client initialized')
+    with weaviate_client() as client:
+        if client is None:
+            return {"error": "Weaviate client not initialized"}
+        try:
+            result = client.query.get("YourClassName", ["property1", "property2"]).with_near_text({"concepts": [query]}).do()
+            return result
+        except Exception as e:
+            return {"error": f"Error searching Weaviate: {str(e)}"}
 
+def chat_with_weaviate(message):
+    with weaviate_client() as client:
+        if client is None:
+            return {"error": "Weaviate client not initialized"}
+        try:
+            # Implement your chat logic here
+            # This is a placeholder response
+            return {"response": f"Received message: {message}"}
+        except Exception as e:
+            return {"error": f"Error chatting with Weaviate: {str(e)}"}
+
+def mockoral_with_weaviate(question):
+    if client is None:
+        initialize_weaviate_client()
     try:
-        logger.debug(f'Searching Weaviate with query: {query}')
-        result = client.query.get("YourClassName", ["property1", "property2"]).with_where({
-            "path": ["property"],
-            "operator": "Equal",
-            "valueString": query
-        }).do()
-        logger.debug(f'Search result: {result}')
-        return result
+        # Implement your mockoral logic here
+        # This is a placeholder response
+        return {"response": f"Received question: {question}"}
     except Exception as e:
-        logger.error(f'Error during Weaviate search: {e}')
-        raise
+        return {"error": f"Error in mockoral with Weaviate: {str(e)}"}
+
+def initialize_weaviate_client():
+    global client
+    client = Client("http://localhost:8080")  # Replace with your Weaviate server URL

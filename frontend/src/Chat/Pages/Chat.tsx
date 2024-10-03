@@ -12,7 +12,7 @@ import {
 
 import Header from '../../Common/Components/Header';
 import Footer from '../../Common/Components/Footer';
-import MessageArea from '../../Chat/Components/MessageArea';
+import MessageArea from '../Components/ChatMessageArea';
 import InputComponent from '../../Chat/Components/InputArea';
 import ReferenceCarousel from '../../Chat/Components/ReferenceCarousel';
 import { Message } from '../../Chat/chatTypes';
@@ -30,8 +30,6 @@ const suggestionTopics = [
   { text: "Explore Aviation Weather", icon: Zap }
 ];
 
-const [referenceBoxes, setReferenceBoxes] = useState<Reference[]>([]);
-
 const navItems = ["Profile", "Chat", "Flash Cards", "Mock Oral", "Gouge"];
 
 const placeholderConversations = [
@@ -42,7 +40,7 @@ const placeholderConversations = [
   "Emergency Procedures Review"
 ];
 
-const Chat = () => {
+const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [showReferences, setShowReferences] = useState(false);
@@ -50,6 +48,7 @@ const Chat = () => {
   const [selectedResource, setSelectedResource] = useState<Reference | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [referenceBoxes, setReferenceBoxes] = useState<Reference[]>([]);
 
   const handleSendMessage = async (content: string) => {
     if (content.trim()) {
@@ -95,8 +94,8 @@ const Chat = () => {
       id: generateId(),
       title: extractTitle(resource) || 'Untitled',
       content: extractContent(resource) || '',
-      icon: BookOpen as LucideIcon, // Cast BookOpen to LucideIcon
-      type: 'common', // Default type, you might want to determine this dynamically
+      icon: BookOpen as LucideIcon,
+      type: 'common',
     };
     setSelectedResource(reference);
   };
@@ -107,7 +106,6 @@ const Chat = () => {
   };
 
   const handleCreateFlashcards = () => {
-    // TODO: Implement flashcard creation logic
     console.log(`Creating flashcards for ${selectedResource?.title || 'the selected topic'}`);
   };
 
@@ -164,28 +162,4 @@ const Chat = () => {
   );
 }
 
-interface InputAreaProps {
-  inputValue: string;
-  setInputValue: (value: string) => void;
-  handleSendMessage: (content: string) => void;
-  showReferences: boolean;
-  onShowReferences: () => void;
-  isLoading: boolean;
-}
-
-const InputArea: React.FC<InputAreaProps> = ({
-  inputValue,
-  setInputValue,
-  handleSendMessage,
-  showReferences,
-  onShowReferences,
-  isLoading,
-}) => {
-  return (
-    <div>
-      {/* Your JSX code here */}
-    </div>
-  );
-};
-
-export { Chat };
+export default Chat;

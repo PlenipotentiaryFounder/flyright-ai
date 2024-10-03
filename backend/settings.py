@@ -50,35 +50,35 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',          # Add this line
-    'api',             # Add your new app here
-    'chat',             # Add the new chat app here
-    'gouge',             # Add the new gouge app here
-    'flashcards',       # Add the new flashcards app here
-    'analytics',       # Add the new analytics app here
-    'admin.apps.AdminConfig',  # Add this line
+    'rest_framework',
+    'api',
+    'chat',
+    'gouge',
+    'flashcards',
+    'analytics',
+    'mockoral',  # Add this new app
+    'profiles',  # Add this new app
+    'users',     # Add this new app
+    'notifications',  # Add this new app
 ]
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'debug.log',
+        'console': {
+            'class': 'logging.StreamHandler',
         },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'api': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
         },
     },
 }
@@ -107,3 +107,19 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'flyright_db',
+        'USER': 'postgres',
+        'PASSWORD': 'Pilot0794!',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']

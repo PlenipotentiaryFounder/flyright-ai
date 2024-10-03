@@ -118,7 +118,7 @@ const FlashcardManagement: React.FC = () => {
     try {
       const flashcardsData = await fetchFlashcards(deck.id);
       console.log(flashcardsData); // Inspect the structure in the console
-      setFlashcards(flashcardsData.data || []); // Adjust based on the actual structure
+      setFlashcards(flashcardsData.results || []); // Adjust based on the actual structure
     } catch (err) {
       setError('Failed to load flashcards. Please try again.');
     }

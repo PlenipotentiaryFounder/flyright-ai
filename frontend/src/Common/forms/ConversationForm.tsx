@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createConversation } from '../../../actions/conversationActions';
-import { AppDispatch } from '@/store'; // Correct path to store
+import { createConversation } from '../../Chat/actions/conversationActions';
+import { AppDispatch } from '../../store'; // Correct path to store
 
 const ConversationForm = () => {
     const [conversationData, setConversationData] = useState({ user: '', title: '' });

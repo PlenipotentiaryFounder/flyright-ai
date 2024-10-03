@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PlaneTakeoff, Settings, Menu } from 'lucide-react';
 import Button from './Button';
 import Sheet from './Sheet'; // Updated path
@@ -38,25 +39,29 @@ const Header: React.FC<HeaderProps> = ({ navItems, placeholderConversations }) =
             </nav>
           </SheetContent>
         </Sheet>
-        <div className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <PlaneTakeoff className="h-6 w-6 text-sky-600" />
           <span className="text-xl font-semibold text-sky-700">FlyRight AI</span>
-        </div>
+        </Link>
       </div>
       <nav className="hidden md:flex space-x-4">
         {navItems.map((item, index) => (
-          <Button
+          <Link
             key={index}
-            variant="ghost"
-            className={item === "Chat" ? "text-sky-600" : ""}
+            to={`/${item.toLowerCase().replace(' ', '')}`}
+            className={`px-3 py-2 rounded-md text-sm font-medium ${
+              item === "Chat" ? "text-sky-600" : "text-gray-700 hover:text-sky-600"
+            }`}
           >
             {item}
-          </Button>
+          </Link>
         ))}
       </nav>
-      <Button variant="ghost" size="icon" aria-label="Settings">
-        <Settings className="h-5 w-5" />
-      </Button>
+      <Link to="/settings">
+        <Button variant="ghost" size="icon" aria-label="Settings">
+          <Settings className="h-5 w-5" />
+        </Button>
+      </Link>
     </header>
   );
 };

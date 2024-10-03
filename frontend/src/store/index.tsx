@@ -1,14 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 // Import your reducers here
-// import someReducer from '../features/someFeature/someSlice';
+// For example:
+// import userReducer from './slices/userSlice';
+// import flashcardReducer from './slices/flashcardSlice';
 
 const store = configureStore({
   reducer: {
     // Add your reducers here
-    // someFeature: someReducer,
+    // For example:
+    // user: userReducer,
+    // flashcards: flashcardReducer,
   },
 });
 
-export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export default store;

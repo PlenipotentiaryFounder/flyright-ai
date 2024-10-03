@@ -1,22 +1,29 @@
 from django.db import models
-from django.conf import settings
+from users.models import CustomUser
 
-class FlashcardDeck(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class FlashcardCategory(models.Model):
+    name = models.CharField(max_length=255, unique=True)
 
-    def __str__(self):
-        return self.name
+class FlashcardSet(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
 
 class Flashcard(models.Model):
-    deck = models.ForeignKey(FlashcardDeck, related_name='flashcards', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    category = models.ForeignKey(FlashcardCategory, null=True, on_delete=models.SET_NULL)
+    set = models.ForeignKey(FlashcardSet, on_delete=models.CASCADE)
     question = models.TextField()
     answer = models.TextField()
+    difficulty = models.IntegerField(choices=[(1, 'Easy'), (2, 'Moderate'), (3, 'Hard')], default=1)
+    status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    last_used = models.DateTimeField(null=True, blank=True)
+    times_used = models.IntegerField(default=0)
 
-    def __str__(self):
-        return f"Flashcard {self.id} in {self.deck.name}"
+class FlashcardUsage(models.Model):
+    flashcard = models.ForeignKey(Flashcard, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    last_reviewed = models.DateTimeField(null=True, blank=True)
+    next_review_due = models.DateTimeField(null=True, blank=True)
+    proficiency_score = models.IntegerField(default=0)

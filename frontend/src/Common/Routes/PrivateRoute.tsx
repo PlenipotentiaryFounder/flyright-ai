@@ -1,11 +1,15 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../Auth/Management/AuthContext';
+import { Outlet } from 'react-router-dom';
 
-const PrivateRoute = () => {
-  const { auth } = useAuth();
+const PrivateRoute: React.FC = () => {
+  // During development, always render the child routes
+  return <Outlet />;
 
-  return auth?.isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  // The original authentication check can be commented out:
+  /*
+  const isAuthenticated = checkIfUserIsAuthenticated();
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  */
 };
 
 export default PrivateRoute;

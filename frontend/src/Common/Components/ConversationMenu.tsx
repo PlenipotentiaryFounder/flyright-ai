@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@/components/ui/Button';
+import Button from '../../Common/Components/Button';
 import { X } from 'lucide-react';
 
 interface ConversationsMenuProps {

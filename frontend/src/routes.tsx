@@ -4,7 +4,7 @@ import LandingPage from './Common/pages/LandingPage';
 import Login from './Auth/Pages/Login';
 import Register from './Auth/Pages/Register';
 import ProfilePage from './Common/pages/ProfilePage';
-import { Chat } from './Chat/Pages/Chat';
+import Chat from './Chat/Pages/Chat';
 import FlashcardsPage from './Flashcards/Pages/FlashcardsPage';
 import GougePage from './Gouge/Pages/GougePage';
 import MockOralPage from './MockOral/Pages/MockOralPage';
@@ -27,6 +27,7 @@ function AppRoutes() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/landing" element={<LandingPage />} />
 
       {/* Protected user routes */}
       <Route element={<PrivateRoute />}>

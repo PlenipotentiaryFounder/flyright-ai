@@ -12,7 +12,7 @@ export default function GougeCard({ gouge, isSelected, onSelect }: GougeCardProp
   return (
     <Card 
       className={`p-4 mb-4 cursor-pointer ${isSelected ? 'border-sky-600' : ''}`}
-      onClick={() => onSelect(gouge)}
+      onClick={() => onSelect(gouge)}  // Use onClick directly on Card
     >
       <h3 className="font-semibold">{gouge.examiner_name}</h3>
       <p className="text-sm text-gray-600">{gouge.date}</p>
