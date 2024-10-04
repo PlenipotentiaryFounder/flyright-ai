@@ -3,7 +3,7 @@ import Button from './Button'; // Adjusted the import path
 import { Trash2 } from 'lucide-react';
 
 interface FooterProps {
-  clearChat: () => void;
+  clearChat?: () => void; // Make clearChat optional
 }
 
 const Footer: React.FC<FooterProps> = ({ clearChat }) => {

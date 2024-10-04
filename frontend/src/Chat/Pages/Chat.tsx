@@ -111,7 +111,7 @@ const Chat: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <Header navItems={navItems} placeholderConversations={placeholderConversations} />
+      <Header placeholderConversations={placeholderConversations} />
       
       <main className="flex-grow flex flex-col p-4 space-y-4 overflow-hidden relative">
         <ScrollArea className="flex-grow">

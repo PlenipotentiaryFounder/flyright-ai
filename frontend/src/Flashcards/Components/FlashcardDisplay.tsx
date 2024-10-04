@@ -1,25 +1,57 @@
 import React from 'react';
-import Button from '../../Common/Components/Button';
 import { Flashcard } from '../flashcardTypes';
+import Card from '../../Common/Components/Card';
+import Button from '../../Common/Components/Button';
 
 interface FlashcardDisplayProps {
-  card: Flashcard;
+  flashcard: Flashcard;
   showAnswer: boolean;
   onToggleAnswer: () => void;
+  onMarkAsKnown: () => void;
+  onMarkAsUnknown: () => void;
 }
 
-const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({ card, showAnswer, onToggleAnswer }) => {
+const FlashcardDisplay: React.FC<FlashcardDisplayProps> = ({
+  flashcard,
+  showAnswer,
+  onToggleAnswer,
+  onMarkAsKnown,
+  onMarkAsUnknown
+}) => {
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">{card.category}</h2>
-      <p className="text-lg mb-4">{card.question}</p>
+    <Card className="mb-4 p-6">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold mb-2">Question:</h3>
+        <p>{flashcard.question}</p>
+      </div>
       {showAnswer && (
-        <p className="text-lg text-green-600 mb-4">{card.answer}</p>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold mb-2">Answer:</h3>
+          <p>{flashcard.answer}</p>
+        </div>
       )}
-      <Button onClick={onToggleAnswer}>
-        {showAnswer ? 'Hide Answer' : 'Show Answer'}
-      </Button>
-    </div>
+      <div className="flex justify-between items-center">
+        <div>
+          <p className="text-sm text-gray-600">
+            Difficulty: {['Easy', 'Moderate', 'Hard'][flashcard.difficulty - 1]}
+          </p>
+          <p className="text-sm text-gray-600">
+            Category: {flashcard.category?.name || 'Uncategorized'}
+          </p>
+        </div>
+        <div className="space-x-2">
+          <Button onClick={onToggleAnswer}>
+            {showAnswer ? 'Hide Answer' : 'Show Answer'}
+          </Button>
+          <Button onClick={onMarkAsKnown} variant="success">
+            I Know This
+          </Button>
+          <Button onClick={onMarkAsUnknown} variant="danger">
+            I Don't Know
+          </Button>
+        </div>
+      </div>
+    </Card>
   );
 };
 

@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Button from "../../Common/Components/Button"
-import { 
-  PlaneTakeoff, Settings, MessageSquare
-} from 'lucide-react'
-import { Link } from 'react-router-dom'
-
+import Header from '../../Common/Components/Header'
 import SearchBar from '../Components/SearchBar'
 import GougeList from '../Components/GougeList'
 import ExaminerDetails from '../Components/ExaminerDetails'
 import { Gouge } from '../types/gougeTypes'
 import api from '../../utils/api'
-
-const navItems = ["Profile", "Chat", "Flash Cards", "Mock Oral", "Gouge"]
 
 export default function GougePage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -59,33 +52,7 @@ export default function GougePage() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 p-4 flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <PlaneTakeoff className="h-6 w-6 text-sky-600" />
-          <span className="text-xl font-semibold text-sky-700">FlyRight AI</span>
-        </div>
-        <nav className="hidden md:flex space-x-4">
-          {navItems.map((item, index) => (
-            <Button
-              key={index}
-              variant="ghost"
-              className={item === "Gouge" ? "text-sky-600" : ""}
-            >
-              {item === "Chat" ? (
-                <Link to="/chat" className="flex items-center">
-                  <MessageSquare className="h-4 w-4 mr-2" />
-                  {item}
-                </Link>
-              ) : (
-                item
-              )}
-            </Button>
-          ))}
-        </nav>
-        <Button variant="ghost" size="icon" aria-label="Settings">
-          <Settings className="h-5 w-5" />
-        </Button>
-      </header>
+      <Header placeholderConversations={[]} />
 
       <main className="flex-grow p-4 overflow-hidden">
         <div className="max-w-6xl mx-auto">

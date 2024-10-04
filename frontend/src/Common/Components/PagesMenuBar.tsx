@@ -1,23 +1,24 @@
 import React from 'react';
-import Button from './Button';
+import { Link, useLocation } from 'react-router-dom';
+import { MAIN_NAV_ITEMS } from '../../constants';
 
-interface PagesMenuBarProps {
+const PagesMenuBar: React.FC = () => {
+  const location = useLocation();
 
-  navItems: string[];
-  currentPage: string;
-}
-
-const PagesMenuBar: React.FC<PagesMenuBarProps> = ({ navItems, currentPage }) => {
   return (
-    <nav className="flex space-x-4">
-      {navItems.map((item, index) => (
-        <Button
+    <nav className="hidden md:flex space-x-4">
+      {MAIN_NAV_ITEMS.map((item, index) => (
+        <Link
           key={index}
-          variant="ghost"
-          className={item === currentPage ? "text-sky-600" : ""}
+          to={`/${item.toLowerCase().replace(' ', '')}`}
+          className={`px-3 py-2 rounded-md text-sm font-medium ${
+            location.pathname === `/${item.toLowerCase().replace(' ', '')}` 
+              ? "text-sky-600" 
+              : "text-gray-700 hover:text-sky-600"
+          }`}
         >
           {item}
-        </Button>
+        </Link>
       ))}
     </nav>
   );

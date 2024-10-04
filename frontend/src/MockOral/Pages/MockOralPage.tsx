@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../../Common/Components/Header';
 import ScenarioSidebar from '../Components/ScenarioSidebar';
 import QuestionArea from '../Components/QuestionArea';
 import ProgressTracker from '../Components/ProgressTracker';
@@ -7,11 +8,10 @@ import Sheet from "../../Common/Components/Sheet";
 import SheetContent from "../../Common/Components/SheetContent";
 import SheetTrigger from "../../Common/Components/SheetTrigger";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../Common/Components/Select";
-import { PlaneTakeoff, Menu, Settings, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import api from '../../utils/api';
 import { MockOralSession, Topic } from '../mockOralTypes';
 
-const navItems = ["Profile", "Chat", "Flash Cards", "Mock Oral", "Gouge"];
 const stages = ["Private Pilot", "Instrument", "Commercial", "ATP"];
 const topics = ["General", "Aerodynamics", "Navigation", "Weather", "Flight Maneuvers", "Regulations"];
 const examiners = ["John Smith", "Jane Doe", "Robert Johnson"];
@@ -31,7 +31,6 @@ export default function MockOralPage() {
   const [selectedStage, setSelectedStage] = useState("");
   const [selectedTopic, setSelectedTopic] = useState("");
   const [selectedExaminer, setSelectedExaminer] = useState("");
-  const [showResources, setShowResources] = useState(false);
   const [sessions, setSessions] = useState<MockOralSession[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -126,84 +125,61 @@ export default function MockOralPage() {
     }
   };
 
+  const placeholderConversations = [
+    "Recent Mock Oral 1",
+    "Recent Mock Oral 2",
+    "Recent Mock Oral 3",
+  ];
+
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 p-4 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-[300px] sm:w-[400px] flex flex-col">
-              <h2 className="text-lg font-semibold mb-4">Mock Orals</h2>
-              <Button className="mb-4">
-                <Plus className="h-4 w-4 mr-2" />
-                New Mock Oral
-              </Button>
-              <div className="space-y-2 mb-4">
-                <Select onValueChange={setSelectedStage}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Stage" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {stages.map((stage) => (
-                      <SelectItem key={stage} value={stage}>{stage}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select onValueChange={setSelectedTopic}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Topic" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {topics.map((topic) => (
-                      <SelectItem key={topic} value={topic}>{topic}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select onValueChange={setSelectedExaminer}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Examiner" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {examiners.map((examiner) => (
-                      <SelectItem key={examiner} value={examiner}>{examiner}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              {/* Display mock oral sessions */}
-              {sessions.map((session) => (
-                <Button key={session.id} variant="ghost" className="justify-start w-full mb-2">
-                  {session.examiner_name} - {new Date(session.created_at).toLocaleDateString()}
-                </Button>
-              ))}
-            </SheetContent>
-          </Sheet>
-          <div className="flex items-center space-x-2">
-            <PlaneTakeoff className="h-6 w-6 text-sky-600" />
-            <span className="text-xl font-semibold text-sky-700">FlyRight AI</span>
-          </div>
-        </div>
-        <nav className="hidden md:flex space-x-4">
-          {navItems.map((item, index) => (
-            <Button
-              key={index}
-              variant="ghost"
-              className={item === "Mock Oral" ? "text-sky-600" : ""}
-            >
-              {item}
-            </Button>
-          ))}
-        </nav>
-        <Button variant="ghost" size="icon" aria-label="Settings">
-          <Settings className="h-5 w-5" />
-        </Button>
-      </header>
+      <Header placeholderConversations={placeholderConversations} />
 
       <div className="flex flex-1 overflow-hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" className="mb-4">
+              <Plus className="h-4 w-4 mr-2" />
+              New Mock Oral
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[400px] flex flex-col">
+            <h2 className="text-lg font-semibold mb-4">New Mock Oral</h2>
+            <div className="space-y-2 mb-4">
+              <Select onValueChange={setSelectedStage}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Stage" />
+                </SelectTrigger>
+                <SelectContent>
+                  {stages.map((stage) => (
+                    <SelectItem key={stage} value={stage}>{stage}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select onValueChange={setSelectedTopic}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Topic" />
+                </SelectTrigger>
+                <SelectContent>
+                  {topics.map((topic) => (
+                    <SelectItem key={topic} value={topic}>{topic}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select onValueChange={setSelectedExaminer}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Examiner" />
+                </SelectTrigger>
+                <SelectContent>
+                  {examiners.map((examiner) => (
+                    <SelectItem key={examiner} value={examiner}>{examiner}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button onClick={startNewSession}>Start Session</Button>
+          </SheetContent>
+        </Sheet>
         <ScenarioSidebar 
           handleDocumentUpload={handleDocumentUpload} 
           handleGenerateDebriefing={handleGenerateDebriefing} 

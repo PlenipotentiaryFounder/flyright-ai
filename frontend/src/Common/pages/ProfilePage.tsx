@@ -120,10 +120,7 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <Header 
-        navItems={["Profile", "Chat", "Flash Cards", "Mock Oral", "Gouge"]} 
-        placeholderConversations={[]} // Add this line
-      />
+      <Header placeholderConversations={[]} />
       
       <main className="flex-grow flex p-4 space-x-4 overflow-hidden">
         <aside className="w-64 bg-white border-r border-gray-200 p-4">

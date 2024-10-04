@@ -7,6 +7,7 @@ class FlashcardCategory(models.Model):
 class FlashcardSet(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    creatorType = models.CharField(max_length=255, choices=[('user', 'User'), ('flyright', 'FlyRight')], default='user')
 
 class Flashcard(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
