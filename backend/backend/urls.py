@@ -17,8 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from django.http import HttpResponse
+
+def debug_view(request):
+    return HttpResponse("Debug view: This is the root URL.")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    path('', debug_view, name='debug_view'),  # Add this line
 ]
