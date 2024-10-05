@@ -1,1 +1,1 @@
-export const MAIN_NAV_ITEMS = ["Profile", "Chat", "Flashcards", "Mock Oral", "Gouge"];
+export const MAIN_NAV_ITEMS = ["Profile", "Chat", "Flash Cards", "Mock Oral", "Gouge"];

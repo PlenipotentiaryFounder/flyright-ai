@@ -1,0 +1,316 @@
+[
+  {
+    "model": "flashcards.flashcardcategory",
+    "fields": {
+      "name": "PPL Default",
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcardset",
+    "fields": {
+      "name": "PPL Aerodynamics",
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is Bernoulli's Principle?",
+      "bold_question": "Bernoulli",
+      "answer": "Bernoulli's principle states that an increase in the speed of a fluid occurs simultaneously with a decrease in pressure or a decrease in the fluid's potential energy.",
+      "bold_answer": "Increase speed, decrease pressure",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What are the four forces acting on an airplane in flight?",
+      "bold_question": "four forces",
+      "answer": "The four forces are lift, weight, thrust, and drag. Lift opposes weight, and thrust opposes drag.",
+      "bold_answer": "lift, weight, thrust, drag",
+      "difficulty": 1,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is the definition of 'angle of attack'?",
+      "bold_question": "angle of attack",
+      "answer": "Angle of attack is the angle between the wing's chord line and the direction of the relative wind.",
+      "bold_answer": "angle between wing's chord line and relative wind",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What happens to induced drag as airspeed increases?",
+      "bold_question": "induced drag",
+      "answer": "Induced drag decreases as airspeed increases because the aircraft generates less lift at higher speeds.",
+      "bold_answer": "decreases as airspeed increases",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is ground effect?",
+      "bold_question": "ground effect",
+      "answer": "Ground effect is a phenomenon where drag decreases and lift increases when an aircraft is within one wingspan of the ground, causing the aircraft to 'float' during landing.",
+      "bold_answer": "drag decreases, lift increases near ground",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is parasite drag?",
+      "bold_question": "parasite drag",
+      "answer": "Parasite drag is drag that is not associated with the production of lift and increases with airspeed. It includes form drag, skin friction, and interference drag.",
+      "bold_answer": "not associated with lift, increases with airspeed",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What causes a stall?",
+      "bold_question": "stall",
+      "answer": "A stall occurs when the angle of attack exceeds the critical angle, causing a loss of lift due to airflow separation over the wing.",
+      "bold_answer": "angle of attack exceeds critical angle",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "How does weight affect the angle of attack?",
+      "bold_question": "weight affect angle of attack",
+      "answer": "Increased weight causes an aircraft to require a higher angle of attack to maintain lift. If the angle of attack is too high, it may result in a stall.",
+      "bold_answer": "higher angle of attack to maintain lift",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is the effect of frost on an aircraft's wing?",
+      "bold_question": "effect of frost",
+      "answer": "Frost disrupts the smooth airflow over the wing, reducing lift and increasing drag, which can lead to a stall at lower angles of attack.",
+      "bold_answer": "reduces lift, increases drag",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is adverse yaw?",
+      "bold_question": "adverse yaw",
+      "answer": "Adverse yaw is the tendency of an airplane to yaw in the opposite direction of a turn due to increased drag on the wing with the aileron deflected downward.",
+      "bold_answer": "yaw in opposite direction of turn",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is induced drag?",
+      "bold_question": "induced drag",
+      "answer": "Induced drag is the drag that results from the production of lift. It increases at lower airspeeds and decreases as airspeed increases.",
+      "bold_answer": "drag from lift, increases at lower airspeeds",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is wake turbulence?",
+      "bold_question": "wake turbulence",
+      "answer": "Wake turbulence is the turbulence that forms behind an aircraft as a result of wingtip vortices, which can be hazardous to following aircraft.",
+      "bold_answer": "turbulence from wingtip vortices",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What are wingtip vortices?",
+      "bold_question": "wingtip vortices",
+      "answer": "Wingtip vortices are spirals of air that form at the wingtips of an aircraft as a result of high-pressure air from below the wing moving to the low-pressure area above the wing.",
+      "bold_answer": "spirals of air at wingtips",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is load factor?",
+      "bold_question": "load factor",
+      "answer": "Load factor is the ratio of the total load supported by the airplane's wings to the actual weight of the airplane and its contents. It is expressed in 'G' units.",
+      "bold_answer": "ratio of total load to actual weight",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What effect does an increase in load factor have on stall speed?",
+      "bold_question": "load factor on stall speed",
+      "answer": "An increase in load factor increases stall speed, as the wings must generate more lift to support the additional load.",
+      "bold_answer": "increases stall speed",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is the relationship between load factor and bank angle?",
+      "bold_question": "load factor and bank angle",
+      "answer": "As the bank angle increases, the load factor also increases. For example, a 60-degree bank results in a load factor of 2 G's.",
+      "bold_answer": "bank angle increases, load factor increases",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is the critical angle of attack?",
+      "bold_question": "critical angle of attack",
+      "answer": "The critical angle of attack is the angle at which a wing stalls, regardless of airspeed, weight, or load factor.",
+      "bold_answer": "angle at which wing stalls",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is the definition of center of pressure?",
+      "bold_question": "center of pressure",
+      "answer": "Center of pressure is the point along the wing's chord line where the total sum of aerodynamic forces act.",
+      "bold_answer": "point where aerodynamic forces act",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is the relationship between air density and aircraft performance?",
+      "bold_question": "air density and aircraft performance",
+      "answer": "As air density decreases (e.g., at higher altitudes or warmer temperatures), aircraft performance is reduced due to less lift and engine power.",
+      "bold_answer": "air density decreases, performance reduced",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "PPL Default",
+      "set": "PPL Aerodynamics",
+      "question": "What is the difference between static and dynamic stability?",
+      "bold_question": "static and dynamic stability",
+      "answer": "Static stability refers to an aircraft's initial response to a disturbance, while dynamic stability refers to its response over time as it returns to its original flight condition.",
+      "bold_answer": "initial response vs. response over time",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  }
+]

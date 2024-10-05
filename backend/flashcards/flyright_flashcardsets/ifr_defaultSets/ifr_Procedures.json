@@ -1,0 +1,316 @@
+[
+  {
+    "model": "flashcards.flashcardcategory",
+    "fields": {
+      "name": "IFR Default",
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcardset",
+    "fields": {
+      "name": "IFR Procedures",
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is an Instrument Approach Procedure (IAP)?",
+      "bold_question": "Instrument Approach Procedure",
+      "answer": "An IAP is a series of predetermined maneuvers for the orderly transfer of an aircraft under instrument flight conditions from the beginning of the initial approach to a landing, or to a point from which a landing may be made visually.",
+      "bold_answer": "predetermined maneuvers",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is a Decision Height (DH)?",
+      "bold_question": "Decision Height",
+      "answer": "DH is a specified altitude or height in the precision approach at which a missed approach must be initiated if the required visual reference to continue the approach has not been established.",
+      "bold_answer": "specified altitude or height",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is the difference between a Precision and Non-Precision Approach?",
+      "bold_question": "Precision vs. Non-Precision Approach",
+      "answer": "A Precision Approach provides both lateral and vertical guidance (e.g., ILS), while a Non-Precision Approach provides only lateral guidance (e.g., VOR, NDB).",
+      "bold_answer": "Lateral+Vertical Vs. Just Lateral ",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is an MDA?",
+      "bold_question": "MDA",
+      "answer": "MDA stands for Minimum Descent Altitude and is the lowest altitude, expressed in feet above mean sea level (MSL), to which descent is authorized on a non-precision approach without visual contact with the runway environment.",
+      "bold_answer": "Minimum Descent Altitude",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is RAIM and why is it important?",
+      "bold_question": "RAIM",
+      "answer": "RAIM stands for Receiver Autonomous Integrity Monitoring, a technology used by GPS receivers to ensure the accuracy of the position data. It is essential for ensuring navigation accuracy under IFR.",
+      "bold_answer": "Receiver Autonomous Integrity Monitoring",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is the purpose of a Missed Approach Procedure?",
+      "bold_question": "Missed Approach Procedure",
+      "answer": "A Missed Approach Procedure provides a safe path and guidance for aircraft if a landing cannot be completed after an instrument approach.",
+      "bold_answer": "safe path and guidance",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What are the requirements to descend below the MDA or DA on an approach?",
+      "bold_question": "descend below the MDA or DA",
+      "answer": "The aircraft must be continuously in a position to land using normal maneuvers, have the required flight visibility, and at least one of the visual references for the runway must be distinctly visible and identifiable to the pilot.",
+      "bold_answer": "required flight visibility",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is a Holding Pattern?",
+      "bold_question": "Holding Pattern",
+      "answer": "A Holding Pattern is a racetrack-shaped maneuver designed to keep an aircraft within a specified airspace while awaiting further clearance.",
+      "bold_answer": "racetrack-shaped maneuver",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What are Alternate Minimums, and when are they required?",
+      "bold_question": "Alternate Minimums",
+      "answer": "Alternate minimums are the weather conditions required for a designated alternate airport to be used in IFR flight planning. They are required when weather conditions at the destination airport fall below certain minimums.",
+      "bold_answer": "weather conditions",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is an Enroute Low Altitude Chart?",
+      "bold_question": "Enroute Low Altitude Chart",
+      "answer": "An Enroute Low Altitude Chart provides detailed navigation information for flights conducted under IFR below 18,000 feet MSL.",
+      "bold_answer": "detailed navigation information",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is a STAR?",
+      "bold_question": "STAR",
+      "answer": "A STAR (Standard Terminal Arrival Route) is a preplanned IFR air traffic control arrival procedure designed to provide a smooth flow of traffic into an airport.",
+      "bold_answer": "Standard Terminal Arrival Route",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is an ODP?",
+      "bold_question": "ODP",
+      "answer": "ODP stands for Obstacle Departure Procedure and is a preplanned IFR departure procedure for aircraft operating at airports with terrain or obstacle considerations.",
+      "bold_answer": "Obstacle Departure Procedure",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is a SID?",
+      "bold_question": "SID",
+      "answer": "A SID (Standard Instrument Departure) is a preplanned IFR air traffic control departure procedure that provides obstacle clearance and a transition from the terminal to the enroute environment.",
+      "bold_answer": "Standard Instrument Departure",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is the meaning of 'radar contact'?",
+      "bold_question": "radar contact",
+      "answer": "'Radar contact' is a term used by ATC to inform a pilot that their aircraft has been identified on radar and will receive radar services.",
+      "bold_answer": "identified on radar",
+      "difficulty": 1,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is VOR and how does it work?",
+      "bold_question": "VOR",
+      "answer": "VOR (VHF Omnidirectional Range) is a type of short-range radio navigation system for aircraft that enables the aircraft to determine its position and stay on course by receiving radio signals transmitted by a network of fixed ground radio beacons.",
+      "bold_answer": "VHF Omnidirectional Range",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What are the IFR takeoff minimums?",
+      "bold_question": "IFR takeoff minimums",
+      "answer": "IFR takeoff minimums depend on the type of aircraft and operation but typically involve minimum ceiling and visibility requirements. For commercial operations, these are often 1 mile visibility for aircraft with two engines or less, and 1/2 mile for aircraft with more than two engines.",
+      "bold_answer": "minimum ceiling and visibility requirements",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is the purpose of an alternate airport?",
+      "bold_question": "alternate airport",
+      "answer": "An alternate airport is a backup airport that a pilot can use if they cannot land at their intended destination due to weather or other issues.",
+      "bold_answer": "backup airport",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is a VOR check and how often is it required?",
+      "bold_question": "VOR check",
+      "answer": "A VOR check ensures the accuracy of the VOR equipment. It is required every 30 days when using VOR navigation under IFR conditions.",
+      "bold_answer": "accuracy of the VOR equipment",
+      "difficulty": 2,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What are the three types of holding pattern entries?",
+      "bold_question": "holding pattern entries",
+      "answer": "The three types of holding pattern entries are direct entry, parallel entry, and teardrop entry.",
+      "bold_answer": "direct entry, parallel entry, teardrop entry",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  },
+  {
+    "model": "flashcards.flashcard",
+    "fields": {
+      "category": "IFR Default",
+      "set": "IFR Procedures",
+      "question": "What is the purpose of a DME arc?",
+      "bold_question": "DME arc",
+      "answer": "A DME arc is a flight path that maintains a constant distance from a navigation aid, often used as part of an instrument approach procedure or for positioning an aircraft for an approach.",
+      "bold_answer": "constant distance from a navigation aid",
+      "difficulty": 3,
+      "status": false,
+      "times_used": 0,
+      "ai_generated": false
+    }
+  }
+]
