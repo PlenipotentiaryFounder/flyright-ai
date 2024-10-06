@@ -1,91 +1,58 @@
-from rest_framework import generics, permissions, status
-from rest_framework.response import Response
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Flashcard, FlashcardDeck
-from .serializers import FlashcardSerializer, FlashcardDeckSerializer
-import logging
+from rest_framework import generics, permissions
+from .models import Flashcard, FlashcardSet, FlashcardCategory
+from .serializers import FlashcardSerializer, FlashcardSetSerializer, FlashcardCategorySerializer
 
-logger = logging.getLogger(__name__)
-
-class FlashcardDeckList(generics.ListCreateAPIView):
-    serializer_class = FlashcardDeckSerializer
+class FlashcardSetList(generics.ListCreateAPIView):
+    serializer_class = FlashcardSetSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return FlashcardDeck.objects.filter(user=self.request.user)
+        return FlashcardSet.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        try:
-            serializer.save(user=self.request.user)
-            logger.info(f"Flashcard deck created by user {self.request.user.username}")
-        except Exception as e:
-            logger.error(f"Error creating flashcard deck: {str(e)}")
-            raise
+        serializer.save(user=self.request.user)
 
-class FlashcardDeckDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = FlashcardDeckSerializer
+class FlashcardSetDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = FlashcardSetSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return FlashcardDeck.objects.filter(user=self.request.user)
-
-    def perform_update(self, serializer):
-        try:
-            serializer.save()
-            logger.info(f"Flashcard deck {serializer.instance.id} updated by user {self.request.user.username}")
-        except Exception as e:
-            logger.error(f"Error updating flashcard deck: {str(e)}")
-            raise
-
-    def perform_destroy(self, instance):
-        try:
-            logger.info(f"Flashcard deck {instance.id} deleted by user {self.request.user.username}")
-            instance.delete()
-        except Exception as e:
-            logger.error(f"Error deleting flashcard deck: {str(e)}")
-            raise
+        return FlashcardSet.objects.filter(user=self.request.user)
 
 class FlashcardList(generics.ListCreateAPIView):
     serializer_class = FlashcardSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        deck_id = self.kwargs['deck_id']
-        return Flashcard.objects.filter(deck__user=self.request.user, deck_id=deck_id)
+        set_id = self.kwargs['set_id']
+        return Flashcard.objects.filter(set__user=self.request.user, set_id=set_id)
 
     def perform_create(self, serializer):
-        try:
-            deck_id = self.kwargs['deck_id']
-            deck = FlashcardDeck.objects.get(id=deck_id, user=self.request.user)
-            serializer.save(deck=deck)
-            logger.info(f"Flashcard created in deck {deck.name} by user {self.request.user.username}")
-        except ObjectDoesNotExist:
-            logger.error(f"Flashcard deck not found: {deck_id}")
-            raise
-        except Exception as e:
-            logger.error(f"Error creating flashcard: {str(e)}")
-            raise
+        set_id = self.kwargs['set_id']
+        flashcard_set = FlashcardSet.objects.get(id=set_id, user=self.request.user)
+        serializer.save(set=flashcard_set, user=self.request.user)
 
 class FlashcardDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = FlashcardSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        deck_id = self.kwargs['deck_id']
-        return Flashcard.objects.filter(deck__user=self.request.user, deck_id=deck_id)
+        set_id = self.kwargs['set_id']
+        return Flashcard.objects.filter(set__user=self.request.user, set_id=set_id)
 
-    def perform_update(self, serializer):
-        try:
-            serializer.save()
-            logger.info(f"Flashcard {serializer.instance.id} updated by user {self.request.user.username}")
-        except Exception as e:
-            logger.error(f"Error updating flashcard: {str(e)}")
-            raise
+class FlashcardCategoryList(generics.ListCreateAPIView):
+    serializer_class = FlashcardCategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-    def perform_destroy(self, instance):
-        try:
-            logger.info(f"Flashcard {instance.id} deleted by user {self.request.user.username}")
-            instance.delete()
-        except Exception as e:
-            logger.error(f"Error deleting flashcard: {str(e)}")
-            raise
+    def get_queryset(self):
+        return FlashcardCategory.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class FlashcardCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = FlashcardCategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return FlashcardCategory.objects.filter(user=self.request.user)

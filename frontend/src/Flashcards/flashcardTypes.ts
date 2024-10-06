@@ -1,7 +1,9 @@
 export interface Flashcard {
   id: number;
   question: string;
+  bold_question: string;
   answer: string;
+  bold_answer: string;
   difficulty: 1 | 2 | 3;
   status: boolean;
   created_at: string;
@@ -15,6 +17,14 @@ export interface Flashcard {
   set: {
     id: number;
     name: string;
-    creatorType: 'user' | 'flyright';
   };
+  creatorType: 'user' | 'flyright';
+  ai_generated: boolean;
+}
+
+export interface FlashcardSet {
+  id: number;
+  name: string;
+  creatorType: 'user' | 'flyright';
+  ai_generated: boolean;
 }

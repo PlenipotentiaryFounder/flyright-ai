@@ -4,8 +4,8 @@ import Spinner from '../../Common/Components/Spinner';
 import FlashcardDisplay from '../Components/FlashcardDisplay';
 import NavigationButtons from '../Components/NavigationButtons';
 import FlashcardInitialOptions from '../Components/FlashcardInitialOptions';
-import { Flashcard } from '../flashcardTypes';
-import Sidebar from '../../Common/Components/Sidebar';
+import { Flashcard, FlashcardSet } from '../flashcardTypes';
+import FlashcardSidebar from '../Components/flashcardSidebar';
 import Header from '../../Common/Components/Header';
 import Footer from '../../Common/Components/Footer';
 
@@ -17,43 +17,57 @@ const placeholderConversations = [
   "Emergency Procedures Review"
 ];
 
-interface FlashcardSetItem {
-  id: string;
-  title: string;
-  cardCount: number;
-  creatorType: 'user' | 'flyright';
-  onClick: () => void;
-}
-
 const FlashcardsPage: React.FC = () => {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
-  const [flashcardSets, setFlashcardSets] = useState<FlashcardSetItem[]>([]);
+  const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
+  const [flashcardCounts, setFlashcardCounts] = useState<{ [setId: number]: number }>({});
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showInitialOptions, setShowInitialOptions] = useState(true);
+  const [showBoldText, setShowBoldText] = useState(false);
 
   useEffect(() => {
     fetchFlashcardSets();
-    fetchFlashcards();
   }, []);
 
   const fetchFlashcardSets = async () => {
     try {
       const response = await api.get('/api/flashcard-sets/');
       setFlashcardSets(response.data);
+      fetchFlashcardCounts(response.data);
     } catch (error) {
       console.error('Error fetching flashcard sets:', error);
+      setError('Failed to load flashcard sets. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const fetchFlashcards = async () => {
+  const fetchFlashcardCounts = async (sets: FlashcardSet[]) => {
+    const counts: { [setId: number]: number } = {};
+    for (const set of sets) {
+      try {
+        const response = await api.get(`/api/flashcard-sets/${set.id}/flashcards/`);
+        counts[set.id] = response.data.length;
+      } catch (error) {
+        console.error(`Error fetching flashcards for set ${set.id}:`, error);
+        counts[set.id] = 0;
+      }
+    }
+    setFlashcardCounts(counts);
+  };
+
+  const handleFlashcardSetClick = async (setId: number) => {
     try {
       setIsLoading(true);
-      const response = await api.get('/api/flashcards/');
+      const response = await api.get(`/api/flashcard-sets/${setId}/flashcards/`);
       setFlashcards(response.data);
+      setCurrentCardIndex(0);
+      setShowAnswer(false);
       setError(null);
+      setShowInitialOptions(false);
     } catch (error) {
       console.error('Error fetching flashcards:', error);
       setError('Failed to load flashcards. Please try again later.');
@@ -62,9 +76,8 @@ const FlashcardsPage: React.FC = () => {
     }
   };
 
-  const handleFlashcardSetClick = (setId: string) => {
-    // Implement logic to load flashcards for the selected set
-    console.log(`Loading flashcard set: ${setId}`);
+  const toggleBoldText = () => {
+    setShowBoldText(!showBoldText);
   };
 
   const handleAddSet = () => {
@@ -156,9 +169,9 @@ const FlashcardsPage: React.FC = () => {
         <FlashcardDisplay
           flashcard={flashcards[currentCardIndex]}
           showAnswer={showAnswer}
+          showBoldText={showBoldText}
           onToggleAnswer={toggleAnswer}
-          onMarkAsKnown={handleMarkAsKnown}
-          onMarkAsUnknown={handleMarkAsUnknown}
+          onToggleBoldText={toggleBoldText}
         />
         <NavigationButtons
           onPrevious={handlePreviousCard}
@@ -174,10 +187,12 @@ const FlashcardsPage: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header placeholderConversations={placeholderConversations} />
       <div className="flex flex-grow">
-        <Sidebar 
+        <FlashcardSidebar 
           title="Flashcard Sets"
           sections={sidebarSections}
-          onAddItem={handleAddSet}
+          onAddSet={handleAddSet}
+          onSelectSet={handleFlashcardSetClick}
+          flashcardCounts={flashcardCounts}
         />
         <main className="flex-grow container mx-auto px-4 py-8">
           {renderContent()}
