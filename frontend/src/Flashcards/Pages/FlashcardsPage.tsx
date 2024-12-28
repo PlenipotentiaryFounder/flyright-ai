@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../utils/api';
+import { fetchFlashcardCategories, fetchFlashcardSets, fetchFlashcards, createFlashcardSet, createFlashcard } from '../../utils/api';
 import Spinner from '../../Common/Components/Spinner';
 import FlashcardDisplay from '../Components/FlashcardDisplay';
 import NavigationButtons from '../Components/NavigationButtons';
 import FlashcardInitialOptions from '../Components/FlashcardInitialOptions';
-import { Flashcard, FlashcardSet } from '../flashcardTypes';
+import { Flashcard, FlashcardSet, FlashcardCategory } from '../flashcardTypes';
 import FlashcardSidebar from '../Components/flashcardSidebar';
 import Header from '../../Common/Components/Header';
 import Footer from '../../Common/Components/Footer';
@@ -27,19 +27,27 @@ const FlashcardsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showInitialOptions, setShowInitialOptions] = useState(true);
   const [showBoldText, setShowBoldText] = useState(false);
+  const [categories, setCategories] = useState<FlashcardCategory[]>([]);
 
   useEffect(() => {
-    fetchFlashcardSets();
+    fetchCategoriesAndSets();
   }, []);
 
-  const fetchFlashcardSets = async () => {
+  const fetchCategoriesAndSets = async () => {
     try {
-      const response = await api.get('/api/flashcard-sets/');
-      setFlashcardSets(response.data);
-      fetchFlashcardCounts(response.data);
+      setIsLoading(true);
+      const [categoriesData, setsData] = await Promise.all([
+        fetchFlashcardCategories(),
+        fetchFlashcardSets()
+      ]);
+      setCategories(categoriesData);
+      setFlashcardSets(setsData);
+      console.log('Fetched categories:', categoriesData);
+      console.log('Fetched flashcard sets:', setsData);
+      fetchFlashcardCounts(setsData);
     } catch (error) {
-      console.error('Error fetching flashcard sets:', error);
-      setError('Failed to load flashcard sets. Please try again later.');
+      console.error('Error fetching categories and sets:', error);
+      setError('Failed to load flashcard categories and sets. Please try again later.');
     } finally {
       setIsLoading(false);
     }
@@ -49,8 +57,8 @@ const FlashcardsPage: React.FC = () => {
     const counts: { [setId: number]: number } = {};
     for (const set of sets) {
       try {
-        const response = await api.get(`/api/flashcard-sets/${set.id}/flashcards/`);
-        counts[set.id] = response.data.length;
+        const flashcardsData = await fetchFlashcards(set.id);
+        counts[set.id] = flashcardsData.results.length;
       } catch (error) {
         console.error(`Error fetching flashcards for set ${set.id}:`, error);
         counts[set.id] = 0;
@@ -62,8 +70,8 @@ const FlashcardsPage: React.FC = () => {
   const handleFlashcardSetClick = async (setId: number) => {
     try {
       setIsLoading(true);
-      const response = await api.get(`/api/flashcard-sets/${setId}/flashcards/`);
-      setFlashcards(response.data);
+      const flashcardsData = await fetchFlashcards(setId);
+      setFlashcards(flashcardsData.results);
       setCurrentCardIndex(0);
       setShowAnswer(false);
       setError(null);
@@ -80,9 +88,20 @@ const FlashcardsPage: React.FC = () => {
     setShowBoldText(!showBoldText);
   };
 
-  const handleAddSet = () => {
+  const handleAddSet = async () => {
     // Implement logic to add a new flashcard set
-    console.log("Adding new flashcard set");
+    try {
+      const newSet: Partial<FlashcardSet> = {
+        name: "New Flashcard Set",
+        // Add other necessary fields
+      };
+      const createdSet = await createFlashcardSet(newSet);
+      setFlashcardSets(prevSets => [...prevSets, createdSet]);
+      console.log("Added new flashcard set:", createdSet);
+    } catch (error) {
+      console.error("Error adding new flashcard set:", error);
+      setError('Failed to add new flashcard set. Please try again later.');
+    }
   };
 
   const handleNextCard = () => {
@@ -183,13 +202,43 @@ const FlashcardsPage: React.FC = () => {
     );
   };
 
+  const organizeFlashcardSets = (sets: FlashcardSet[], categories: FlashcardCategory[]) => {
+    const organized = {
+      flyright: {} as Record<number, FlashcardSet[]>,
+      user: {} as Record<number, FlashcardSet[]>
+    };
+
+    categories.forEach(category => {
+      if (category.creatorType === 'flyright') {
+        organized.flyright[category.id] = [];
+      } else {
+        organized.user[category.id] = [];
+      }
+    });
+
+    sets.forEach(set => {
+      if (set.category) {
+        if (set.creatorType === 'flyright') {
+          organized.flyright[set.category.id].push(set);
+        } else {
+          organized.user[set.category.id].push(set);
+        }
+      }
+    });
+
+    return organized;
+  };
+
+  const organizedSets = organizeFlashcardSets(flashcardSets, categories);
+  console.log('Organized sets:', organizedSets);
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Header placeholderConversations={placeholderConversations} />
       <div className="flex flex-grow">
         <FlashcardSidebar 
-          title="Flashcard Sets"
-          sections={sidebarSections}
+          categories={categories}
+          organizedSets={organizedSets}
           onAddSet={handleAddSet}
           onSelectSet={handleFlashcardSetClick}
           flashcardCounts={flashcardCounts}

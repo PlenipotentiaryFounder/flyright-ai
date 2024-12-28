@@ -22,9 +22,18 @@ export interface Flashcard {
   ai_generated: boolean;
 }
 
-export interface FlashcardSet {
+export interface FlashcardCategory {
   id: number;
   name: string;
   creatorType: 'user' | 'flyright';
-  ai_generated: boolean;
+}
+
+export interface FlashcardSet {
+  id: number;
+  name: string;
+  description: string;
+  flashcard_count: number;
+  category?: FlashcardCategory;
+  creatorType?: 'user' | 'flyright';
+  ai_generated?: boolean;
 }

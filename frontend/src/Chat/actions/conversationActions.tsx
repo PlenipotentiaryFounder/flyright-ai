@@ -1,37 +1,40 @@
 import axios from 'axios';
-import { Dispatch } from 'redux';
-import { CREATE_CONVERSATION, CREATE_MESSAGE } from '../chatTypes'; // Adjust the import path as needed
-import { Conversation, Message as ChatMessage } from '../chatTypes'; // Adjust the import path as needed
 
-interface Message {
-    conversationId: string;
-    // ... other properties ...
+// Define types (adjust as needed based on your actual data structures)
+export interface Conversation {
+  id?: string;
+  title: string;
+  user: string;
+  // Add other properties as needed
 }
 
-export const createConversation = (conversationData: Conversation) => async (dispatch: Dispatch) => {
-    console.log('Creating a new conversation', conversationData);
-    try {
-        const response = await axios.post('/api/conversations/', conversationData);
-        dispatch({
-            type: CREATE_CONVERSATION,
-            payload: response.data,
-        });
-        console.log('Conversation created successfully', response.data);
-    } catch (error) {
-        console.error('Error creating conversation', error);
-    }
+export interface Message {
+  id?: string;
+  conversationId: string;
+  content: string;
+  // Add other properties as needed
+}
+
+export const createConversation = async (conversationData: Conversation): Promise<Conversation> => {
+  console.log('Creating a new conversation', conversationData);
+  try {
+    const response = await axios.post<Conversation>('/api/conversations/', conversationData);
+    console.log('Conversation created successfully', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating conversation', error);
+    throw error; // Re-throw the error so it can be handled by the caller
+  }
 };
 
-export const createMessage = (messageData: Message) => async (dispatch: Dispatch) => {
-    console.log('Creating a new message', messageData);
-    try {
-        const response = await axios.post(`/api/conversations/${messageData.conversationId}/add_message/`, messageData);
-        dispatch({
-            type: CREATE_MESSAGE,
-            payload: response.data,
-        });
-        console.log('Message created successfully', response.data);
-    } catch (error) {
-        console.error('Error creating message', error);
-    }
+export const createMessage = async (messageData: Message): Promise<Message> => {
+  console.log('Creating a new message', messageData);
+  try {
+    const response = await axios.post<Message>(`/api/conversations/${messageData.conversationId}/add_message/`, messageData);
+    console.log('Message created successfully', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating message', error);
+    throw error; // Re-throw the error so it can be handled by the caller
+  }
 };

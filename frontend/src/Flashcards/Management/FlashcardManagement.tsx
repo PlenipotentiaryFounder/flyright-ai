@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { fetchFlashcardDecks, createFlashcardDeck, updateFlashcardDeck, deleteFlashcardDeck, fetchFlashcards, createFlashcard, updateFlashcard, deleteFlashcard, FlashcardDeck, Flashcard } from '../../Admin/services/api';
+import { fetchFlashcardSets, createFlashcardSet, updateFlashcardSet, deleteFlashcardSet, fetchFlashcards, createFlashcard, updateFlashcard, deleteFlashcard } from '../../utils/api';
+import { FlashcardSet, Flashcard } from '../flashcardTypes';
 import * as yup from 'yup';
 
-const flashcardDeckSchema = yup.object().shape({
-  name: yup.string().required('Deck name is required'),
+const flashcardSetSchema = yup.object().shape({
+  name: yup.string().required('Set name is required'),
   description: yup.string().required('Description is required'),
 });
 
@@ -13,12 +14,12 @@ const flashcardSchema = yup.object().shape({
 });
 
 const FlashcardManagement: React.FC = () => {
-  const [flashcardDecks, setFlashcardDecks] = useState<FlashcardDeck[]>([]);
-  const [selectedDeck, setSelectedDeck] = useState<FlashcardDeck | null>(null);
+  const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
+  const [selectedSet, setSelectedSet] = useState<FlashcardSet | null>(null);
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [newDeck, setNewDeck] = useState<Partial<FlashcardDeck>>({ name: '', description: '' });
+  const [newSet, setNewSet] = useState<Partial<FlashcardSet>>({ name: '', description: '' });
   const [newFlashcard, setNewFlashcard] = useState<Partial<Flashcard>>({ question: '', answer: '' });
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -27,25 +28,21 @@ const FlashcardManagement: React.FC = () => {
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({});
 
   useEffect(() => {
-    loadFlashcardDecks();
+    loadFlashcardSets();
   }, [page, search, filters]);
 
-  const loadFlashcardDecks = async () => {
+  const loadFlashcardSets = async () => {
     try {
       setLoading(true);
-      const response = await fetchFlashcardDecks(page, search, {
-        min_cards: filters.min_cards ? parseInt(filters.min_cards) : undefined,
-        max_cards: filters.max_cards ? parseInt(filters.max_cards) : undefined,
-      });
+      const response = await fetchFlashcardSets(page);
       if (page === 1) {
-        setFlashcardDecks(response.results);
+        setFlashcardSets(response.results);
       } else {
-        setFlashcardDecks(prevDecks => [...prevDecks, ...response.results]);
+        setFlashcardSets([...flashcardSets, ...response.results]);
       }
       setHasMore(!!response.next);
-      setError(null);
     } catch (err) {
-      setError('Failed to load flashcard decks. Please try again.');
+      setError('Failed to load flashcard sets. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -67,58 +64,57 @@ const FlashcardManagement: React.FC = () => {
     setPage(1);
   };
 
-  const handleCreateDeck = async (e: React.FormEvent) => {
+  const handleCreateSet = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await flashcardDeckSchema.validate(newDeck, { abortEarly: false });
-      const createdDeck = await createFlashcardDeck(newDeck);
-      setFlashcardDecks([...flashcardDecks, createdDeck]);
-      setNewDeck({ name: '', description: '' });
+      await flashcardSetSchema.validate(newSet, { abortEarly: false });
+      const createdSet = await createFlashcardSet(newSet);
+      setFlashcardSets([...flashcardSets, createdSet]);
+      setNewSet({ name: '', description: '' });
       setFormErrors({});
     } catch (err) {
       if (err instanceof yup.ValidationError) {
         const errors: {[key: string]: string} = {};
-        err.inner.forEach((error: yup.ValidationError) => {
+        err.inner.forEach((error) => {
           if (error.path) {
             errors[error.path] = error.message;
           }
         });
         setFormErrors(errors);
       } else {
-        setError('Failed to create flashcard deck. Please try again.');
+        setError('Failed to create flashcard set. Please try again.');
       }
     }
   };
 
-  const handleUpdateDeck = async (deckId: number, deckData: Partial<FlashcardDeck>) => {
+  const handleUpdateSet = async (setId: number, setData: Partial<FlashcardSet>) => {
     try {
-      const updatedDeck = await updateFlashcardDeck(deckId, deckData);
-      setFlashcardDecks(flashcardDecks.map(deck => deck.id === updatedDeck.id ? updatedDeck : deck));
+      const updatedSet = await updateFlashcardSet(setId, setData);
+      setFlashcardSets(flashcardSets.map(set => set.id === updatedSet.id ? updatedSet : set));
     } catch (err) {
-      setError('Failed to update flashcard deck. Please try again.');
+      setError('Failed to update flashcard set. Please try again.');
     }
   };
 
-  const handleDeleteDeck = async (deckId: number) => {
-    if (!window.confirm('Are you sure you want to delete this deck?')) return;
+  const handleDeleteSet = async (setId: number) => {
+    if (!window.confirm('Are you sure you want to delete this set?')) return;
     try {
-      await deleteFlashcardDeck(deckId);
-      setFlashcardDecks(flashcardDecks.filter(deck => deck.id !== deckId));
-      if (selectedDeck?.id === deckId) {
-        setSelectedDeck(null);
+      await deleteFlashcardSet(setId);
+      setFlashcardSets(flashcardSets.filter(set => set.id !== setId));
+      if (selectedSet?.id === setId) {
+        setSelectedSet(null);
         setFlashcards([]);
       }
     } catch (err) {
-      setError('Failed to delete flashcard deck. Please try again.');
+      setError('Failed to delete flashcard set. Please try again.');
     }
   };
 
-  const handleSelectDeck = async (deck: FlashcardDeck) => {
-    setSelectedDeck(deck);
+  const handleSelectSet = async (set: FlashcardSet) => {
+    setSelectedSet(set);
     try {
-      const flashcardsData = await fetchFlashcards(deck.id);
-      console.log(flashcardsData); // Inspect the structure in the console
-      setFlashcards(flashcardsData.results || []); // Adjust based on the actual structure
+      const flashcardsData = await fetchFlashcards(set.id);
+      setFlashcards(flashcardsData.results || []);
     } catch (err) {
       setError('Failed to load flashcards. Please try again.');
     }
@@ -126,17 +122,17 @@ const FlashcardManagement: React.FC = () => {
 
   const handleCreateFlashcard = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedDeck) return;
+    if (!selectedSet) return;
     try {
       await flashcardSchema.validate(newFlashcard, { abortEarly: false });
-      const createdFlashcard = await createFlashcard(selectedDeck.id, newFlashcard);
+      const createdFlashcard = await createFlashcard(selectedSet.id, newFlashcard);
       setFlashcards([...flashcards, createdFlashcard]);
       setNewFlashcard({ question: '', answer: '' });
       setFormErrors({});
     } catch (err) {
       if (err instanceof yup.ValidationError) {
         const errors: {[key: string]: string} = {};
-        err.inner.forEach((error: yup.ValidationError) => {
+        err.inner.forEach((error) => {
           if (error.path) {
             errors[error.path] = error.message;
           }
@@ -149,9 +145,9 @@ const FlashcardManagement: React.FC = () => {
   };
 
   const handleUpdateFlashcard = async (flashcardId: number, flashcardData: Partial<Flashcard>) => {
-    if (!selectedDeck) return;
+    if (!selectedSet) return;
     try {
-      const updatedFlashcard = await updateFlashcard(selectedDeck.id, flashcardId, flashcardData);
+      const updatedFlashcard = await updateFlashcard(selectedSet.id, flashcardId, flashcardData);
       setFlashcards(flashcards.map(card => card.id === updatedFlashcard.id ? updatedFlashcard : card));
     } catch (err) {
       setError('Failed to update flashcard. Please try again.');
@@ -159,9 +155,9 @@ const FlashcardManagement: React.FC = () => {
   };
 
   const handleDeleteFlashcard = async (flashcardId: number) => {
-    if (!selectedDeck || !window.confirm('Are you sure you want to delete this flashcard?')) return;
+    if (!selectedSet || !window.confirm('Are you sure you want to delete this flashcard?')) return;
     try {
-      await deleteFlashcard(selectedDeck.id, flashcardId);
+      await deleteFlashcard(selectedSet.id, flashcardId);
       setFlashcards(flashcards.filter(card => card.id !== flashcardId));
     } catch (err) {
       setError('Failed to delete flashcard. Please try again.');
@@ -179,7 +175,7 @@ const FlashcardManagement: React.FC = () => {
       <div className="mb-4">
         <input
           type="text"
-          placeholder="Search flashcard decks..."
+          placeholder="Search flashcard sets..."
           value={search}
           onChange={handleSearch}
           className="p-2 border rounded mr-2"
@@ -200,36 +196,36 @@ const FlashcardManagement: React.FC = () => {
         />
       </div>
 
-      {/* Create Deck Form */}
-      <form onSubmit={handleCreateDeck} className="mb-8">
+      {/* Create Set Form */}
+      <form onSubmit={handleCreateSet} className="mb-8">
         <input
           type="text"
-          placeholder="Deck Name"
-          value={newDeck.name}
-          onChange={(e) => setNewDeck({...newDeck, name: e.target.value})}
+          placeholder="Set Name"
+          value={newSet.name}
+          onChange={(e) => setNewSet({...newSet, name: e.target.value})}
           className={`mr-2 p-2 border rounded ${formErrors.name ? 'border-red-500' : ''}`}
         />
         {formErrors.name && <p className="text-red-500 text-sm">{formErrors.name}</p>}
         <input
           type="text"
           placeholder="Description"
-          value={newDeck.description}
-          onChange={(e) => setNewDeck({...newDeck, description: e.target.value})}
+          value={newSet.description}
+          onChange={(e) => setNewSet({...newSet, description: e.target.value})}
           className={`mr-2 p-2 border rounded ${formErrors.description ? 'border-red-500' : ''}`}
         />
         {formErrors.description && <p className="text-red-500 text-sm">{formErrors.description}</p>}
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Create Deck</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Create Set</button>
       </form>
 
-      {/* Deck List */}
+      {/* Set List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {flashcardDecks.map((deck) => (
-          <div key={deck.id} className="border p-4 rounded">
-            <h3 className="font-bold">{deck.name}</h3>
-            <p>{deck.description}</p>
-            <p>Flashcards: {deck.flashcard_count}</p>
-            <button onClick={() => handleSelectDeck(deck)} className="bg-green-500 text-white px-2 py-1 rounded mr-2 mt-2">View Flashcards</button>
-            <button onClick={() => handleDeleteDeck(deck.id)} className="bg-red-500 text-white px-2 py-1 rounded mt-2">Delete Deck</button>
+        {flashcardSets.map((set) => (
+          <div key={set.id} className="border p-4 rounded">
+            <h3 className="font-bold">{set.name}</h3>
+            <p>{set.description}</p>
+            <p>Flashcards: {set.flashcard_count}</p>
+            <button onClick={() => handleSelectSet(set)} className="bg-green-500 text-white px-2 py-1 rounded mr-2 mt-2">View Flashcards</button>
+            <button onClick={() => handleDeleteSet(set.id)} className="bg-red-500 text-white px-2 py-1 rounded mt-2">Delete Set</button>
           </div>
         ))}
       </div>
@@ -244,10 +240,10 @@ const FlashcardManagement: React.FC = () => {
         </button>
       )}
 
-      {/* Selected Deck and Flashcards */}
-      {selectedDeck && (
+      {/* Selected Set and Flashcards */}
+      {selectedSet && (
         <div className="mt-8">
-          <h3 className="text-xl font-bold mb-4">Flashcards for {selectedDeck.name}</h3>
+          <h3 className="text-xl font-bold mb-4">Flashcards for {selectedSet.name}</h3>
           
           {/* Create Flashcard Form */}
           <form onSubmit={handleCreateFlashcard} className="mb-4">

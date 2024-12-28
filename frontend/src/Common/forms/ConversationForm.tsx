@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createConversation } from '../../Chat/actions/conversationActions';
-import { AppDispatch } from '../../store'; // Correct path to store
 
-const ConversationForm = () => {
-    const [conversationData, setConversationData] = useState({ user: '', title: '' });
+interface ConversationData {
+  user: string;
+  title: string;
+}
 
-    const dispatch = useDispatch<AppDispatch>();
+interface ConversationFormProps {
+  onSubmit: (data: ConversationData) => void;
+}
+
+const ConversationForm: React.FC<ConversationFormProps> = ({ onSubmit }) => {
+    const [conversationData, setConversationData] = useState<ConversationData>({ user: '', title: '' });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setConversationData({ ...conversationData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>
-    ) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log('Submitting conversation form', conversationData);
-        dispatch(createConversation(conversationData));
+        onSubmit(conversationData);
     };
 
     return (
