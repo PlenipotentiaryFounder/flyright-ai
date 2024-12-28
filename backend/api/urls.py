@@ -17,6 +17,7 @@ from mockoral.views import MockOralSessionList, MockOralSessionDetail
 from profiles.views import ProfileDetailView
 from analytics.views import UserActivityList, UserActivityDetail, PerformanceMetricList, PerformanceMetricDetail
 
+
 router = DefaultRouter()
 
 # Flashcards
@@ -58,4 +59,5 @@ urlpatterns = [
     # Additional paths for Flashcard Categories and Sets
     path('flashcard-categories/', FlashcardCategoryViewSet.as_view({'get': 'list'}), name='flashcard-category-list'),
     path('flashcard-sets/', FlashcardSetViewSet.as_view({'get': 'list'}), name='flashcard-set-list'),
+   
 ]

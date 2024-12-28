@@ -3,6 +3,7 @@ from .models import Flashcard, FlashcardSet, FlashcardCategory
 from .serializers import FlashcardSerializer, FlashcardSetSerializer, FlashcardCategorySerializer
 
 class FlashcardSetViewSet(viewsets.ModelViewSet):
+    queryset = FlashcardSet.objects.all()
     serializer_class = FlashcardSetSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -13,6 +14,7 @@ class FlashcardSetViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 class FlashcardViewSet(viewsets.ModelViewSet):
+    queryset = Flashcard.objects.all()
     serializer_class = FlashcardSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -25,6 +27,7 @@ class FlashcardViewSet(viewsets.ModelViewSet):
         serializer.save(set=flashcard_set, user=self.request.user)
 
 class FlashcardCategoryViewSet(viewsets.ModelViewSet):
+    queryset = FlashcardCategory.objects.all()
     serializer_class = FlashcardCategorySerializer
     permission_classes = [permissions.IsAuthenticated]
 
